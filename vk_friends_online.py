@@ -19,10 +19,12 @@ def get_online_friends(login, password):
         app_id=APP_ID,
         user_login=login,
         user_password=password,
+        scope='friends',
     )
     api = vk.API(session)
-    # например, api.friends.get()
-    print(api.friends.get())
+
+    friends_online_ids = api.friends.getOnline()
+    return friends_online_ids
 
 
 def output_friends_to_console(friends_online):
