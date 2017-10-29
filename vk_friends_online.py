@@ -34,10 +34,11 @@ def get_online_friends_ids(vk_session):
 def output_friends_to_console(friends_online_ids, vk_session):
     fio_list = []
     print('Сейчас в онлайне след. пользователи:\n')
-    for id in friends_online_ids:
-        user_info = vk_session.users.get(user_id=id)[0]
+    for user_id in friends_online_ids:
+        user_info = vk_session.users.get(user_id=user_id)[0]
         fio_list.append(user_info['first_name'] + ' ' + user_info['last_name'])
-        time.sleep(1)
+        time_count = 1
+        time.sleep(time_count)
 
     for fio in fio_list:
         print(fio)
