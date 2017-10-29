@@ -1,4 +1,5 @@
 import vk
+import time
 
 
 APP_ID = 6238089  # чтобы получить app_id, нужно зарегистрировать своё приложение на https://vk.com/dev
@@ -14,7 +15,7 @@ def get_user_password():
     return user_password
 
 
-def get_online_friends(login, password):
+def create_vk_session(login, password):
     session = vk.AuthSession(
         app_id=APP_ID,
         user_login=login,
@@ -22,17 +23,29 @@ def get_online_friends(login, password):
         scope='friends',
     )
     api = vk.API(session)
+    return api
 
-    friends_online_ids = api.friends.getOnline()
+
+def get_online_friends_ids(vk_session):
+    friends_online_ids = vk_session.friends.getOnline()
     return friends_online_ids
 
 
-def output_friends_to_console(friends_online):
-    pass
+def output_friends_to_console(friends_online_ids, vk_session):
+    fio_list = []
+    print('Сейчас в онлайне след. пользователи:\n')
+    for id in friends_online_ids:
+        user_info = vk_session.users.get(user_id=id)[0]
+        fio_list.append(user_info['first_name'] + ' ' + user_info['last_name'])
+        time.sleep(1)
+
+    for fio in fio_list:
+        print(fio)
 
 
 if __name__ == '__main__':
     login = get_user_login()
     password = get_user_password()
-    friends_online = get_online_friends(login, password)
-    output_friends_to_console(friends_online)
+    vk_session = create_vk_session(login, password)
+    friends_online_ids = get_online_friends_ids(vk_session)
+    output_friends_to_console(friends_online_ids, vk_session)
