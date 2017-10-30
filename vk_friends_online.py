@@ -30,9 +30,13 @@ def get_online_friends_ids(vk_session):
     return friends_online_ids
 
 
-def output_friends_to_console(friends_online_ids, vk_session):
+def get_users_info(users_ids, vk_session):
+    users_info = vk_session.users.get(user_ids=users_ids)
+    return users_info
+
+
+def output_friends_to_console(users_info):
     print('Сейчас в онлайне след. пользователи:\n')
-    users_info = vk_session.users.get(user_ids=friends_online_ids)
     for user in users_info:
         print('{} {}'.format(user['first_name'], user['last_name']))
 
@@ -42,4 +46,5 @@ if __name__ == '__main__':
     password = get_user_password()
     vk_session = create_vk_session(login, password)
     friends_online_ids = get_online_friends_ids(vk_session)
-    output_friends_to_console(friends_online_ids, vk_session)
+    users_info = get_users_info(friends_online_ids, vk_session)
+    output_friends_to_console(users_info)
