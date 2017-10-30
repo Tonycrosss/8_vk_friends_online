@@ -2,7 +2,7 @@ import vk
 import time
 
 
-APP_ID = 6238089  # чтобы получить app_id, нужно зарегистрировать своё приложение на https://vk.com/dev
+APP_ID = 6238089
 
 
 def get_user_login():

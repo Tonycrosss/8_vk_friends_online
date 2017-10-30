@@ -2,6 +2,10 @@
 
 This module is connecting to vk.com and show u friends online
 
+# Variables
+
+APP_ID - to get app_id u must register your app at https://vk.com/dev
+
 # How to Install
 
 Python 3 should be already installed. Then use pip (or pip3 if there is a conflict with old Python 2 setup) to install dependencies:
