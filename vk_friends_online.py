@@ -1,6 +1,6 @@
 import vk
 import time
-
+import getpass
 
 APP_ID = 6238089
 
@@ -11,7 +11,7 @@ def get_user_login():
 
 
 def get_user_password():
-    user_password = input('Введите свой пароль:\n')
+    user_password = getpass.getpass(prompt='Введите свой пароль:\n')
     return user_password
 
 
@@ -32,16 +32,10 @@ def get_online_friends_ids(vk_session):
 
 
 def output_friends_to_console(friends_online_ids, vk_session):
-    fio_list = []
     print('Сейчас в онлайне след. пользователи:\n')
-    for user_id in friends_online_ids:
-        user_info = vk_session.users.get(user_id=user_id)[0]
-        fio_list.append(user_info['first_name'] + ' ' + user_info['last_name'])
-        time_count = 1
-        time.sleep(time_count)
-
-    for fio in fio_list:
-        print(fio)
+    users_info = vk_session.users.get(user_ids=friends_online_ids)
+    for user in users_info:
+        print('{} {}'.format(user['first_name'], user['last_name']))
 
 
 if __name__ == '__main__':
